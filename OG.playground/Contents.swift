@@ -5,12 +5,12 @@ let testPath = NSBundle.mainBundle().pathForResource("demo", ofType: "html")!
 let testHTML = try! NSString(contentsOfFile: testPath, encoding: NSUTF8StringEncoding) as String
 print(testHTML)
 
-var metadata = [String: AnyObject]()
+var metadata = [String: OpenGraphType]()
 let parser = Parser()
 parser.onFind = { (tag, values) in
 	if let tag = Tag(rawValue: "meta") where tag == .meta {
 		var property: String? = nil
-		var content: AnyObject? = nil
+		var content: OpenGraphType? = nil
 
 		for value in values {
 			guard let pair = KeyValue(rawValue: value.0.lowercaseString) else {
@@ -20,12 +20,21 @@ parser.onFind = { (tag, values) in
 
 			switch pair {
 			case .property: property = value.1 as? String
-			case .content: content = value.1
+			case .content: content = value.1 as? OpenGraphType
 			default: print("Unknown key \(value.0) with value \(value.1)")
 			}
 		}
 
 		if let property = property, content = content {
+			if let _ = metadata.indexForKey(property) {
+				if var existing = metadata[property] as? [property.dynamicType] {
+					existing.append(property)
+				} else if let existing = metadata[property] {
+					metadata[property] = [ existing, content ]
+				} else {
+					metadata[property] = content
+				}
+			}
 			metadata[property] = content
 		}
 	}
