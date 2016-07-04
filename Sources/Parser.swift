@@ -7,7 +7,6 @@ private enum ParserState {
 }
 
 public final class Parser {
-	private var openTagCount: Int = 0
 	public var onFind: ((tag: String, value: [String: String]) -> Void)? = nil
 
 	public init() {}
@@ -77,7 +76,6 @@ public final class Parser {
 				currentProperty = ""
 
 				ignoringUntilClosingTag = false
-				openTagCount -= 1
 				continue
 			}
 
@@ -89,7 +87,6 @@ public final class Parser {
 			if character == Character("<") {
 				didSetMatchingTagState = true
 				state = .matchingTagName
-				openTagCount += 1
 			}
 
 			guard let nextCharacter = text.characterAt(index: i + 1) else {
@@ -164,6 +161,6 @@ public final class Parser {
 			}
 		}
 
-		return openTagCount == 0
+		return currentTags.isEmpty
 	}
 }
