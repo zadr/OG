@@ -86,8 +86,6 @@ public class Media: Metadata, OGMedia {
 }
 
 public final class Image: Media, OGImage {
-	public static var type: String { return "og:image" }
-
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
