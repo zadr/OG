@@ -38,38 +38,11 @@ There are two steps to take:
 `1.` Parse `<meta>` tags out of html, keeping track of any relevant OpenGraph meta tags. To help with this, `OG` provides a barebones parser:
 
 ```swift
-var metadata = [String: OpenGraphType]()
 let parser = Parser()
+let metaTagTracker = MetaTagTracker()
 parser.onFind = { (tag, values) in
-	if let tag = Tag(rawValue: "meta") where tag == .meta {
-		var property: String? = nil
-		var content: OpenGraphType? = nil
-
-		for value in values {
-			guard let pair = KeyValue(rawValue: value.0.lowercaseString) else {
-				print("Unsupported key '\(value.0)' with value '\(value.1)'")
-				continue
-			}
-
-			switch pair {
-			case .property: property = value.1 as? String
-			case .content: content = value.1 as? OpenGraphType
-			default: print("Unknown key \(value.0) with value \(value.1)")
-			}
-		}
-
-		if let property = property, content = content {
-			if let _ = metadata.indexForKey(property) {
-				if var existing = metadata[property] as? [property.dynamicType] {
-					existing.append(property)
-				} else if let existing = metadata[property] {
-					metadata[property] = [ existing, content ]
-				} else {
-					metadata[property] = content
-				}
-			}
-			metadata[property] = content
-		}
+	if !metaTagTracker.track(tag, values: values) {
+		print("refusing to track non-meta tag \(tag) with values \(values)")
 	}
 }
 
@@ -79,7 +52,7 @@ let success = parser.parse(html)
 `2.` Turn a dictionary of attributes into an OpenGraph metadata object:
 
 ```swift
-if success, let tag = Metadata.from(metadata) {
+if success, let tag = Metadata.from(metaTagTracker.metadata) {
 	print(tag)
 }
 ```

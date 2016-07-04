@@ -5,42 +5,19 @@ let testPath = NSBundle.mainBundle().pathForResource("demo", ofType: "html")!
 let testHTML = try! NSString(contentsOfFile: testPath, encoding: NSUTF8StringEncoding) as String
 print(testHTML)
 
-var metadata = [String: OpenGraphType]()
 let parser = Parser()
+let metaTagTracker = MetaTagTracker()
 parser.onFind = { (tag, values) in
-	if let tag = Tag(rawValue: "meta") where tag == .meta {
-		var property: String? = nil
-		var content: OpenGraphType? = nil
-
-		for value in values {
-			guard let pair = KeyValue(rawValue: value.0.lowercaseString) else {
-				print("Unsupported key '\(value.0)' with value '\(value.1)'")
-				continue
-			}
-
-			switch pair {
-			case .property: property = value.1 as? String
-			case .content: content = value.1 as? OpenGraphType
-			default: print("Unknown key \(value.0) with value \(value.1)")
-			}
-		}
-
-		if let property = property, content = content {
-			if let _ = metadata.indexForKey(property) {
-				if var existing = metadata[property] as? [property.dynamicType] {
-					existing.append(property)
-				} else if let existing = metadata[property] {
-					metadata[property] = [ existing, content ]
-				} else {
-					metadata[property] = content
-				}
-			}
-			metadata[property] = content
-		}
+	if !metaTagTracker.track(tag, values: values) {
+		print("refusing to track non-meta tag \(tag) with values \(values)")
+	} else {
+		print("found \(tag) \(values)")
 	}
 }
 
-let _ = parser.parse(testHTML)
-if let tag = Metadata.from(metadata) {
+let success = parser.parse(testHTML)
+if success, let tag = Metadata.from(metaTagTracker.metadata) {
 	print(tag)
+} else {
+	print("parsing succeeded: \(success), unable to convert metadata \(metaTagTracker.metadata) to OpenGraph object")
 }
