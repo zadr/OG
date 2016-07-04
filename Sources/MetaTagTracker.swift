@@ -45,3 +45,49 @@ public final class MetaTagTracker {
 		return true
 	}
 }
+
+// MARK: -
+
+private enum Tag: RawRepresentable {
+	typealias RawValue = String
+
+	case head
+	case meta
+
+	init?(rawValue: RawValue) {
+		switch rawValue.lowercaseString {
+		case "head": self = .head
+		case "meta": self = .meta
+		default: return nil
+		}
+	}
+
+	var rawValue: RawValue {
+		switch self {
+		case head: return "head"
+		case meta: return "meta"
+		}
+	}
+}
+
+private enum KeyValue: RawRepresentable {
+	typealias RawValue = String
+
+	case property
+	case content
+
+	init?(rawValue: RawValue) {
+		switch rawValue.lowercaseString {
+		case "property": self = .property
+		case "content": self = .content
+		default: return nil
+		}
+	}
+
+	var rawValue: RawValue {
+		switch self {
+		case property: return "property"
+		case content: return "content"
+		}
+	}
+}
