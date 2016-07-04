@@ -64,10 +64,6 @@ public final class Parser {
 					return false
 				}
 
-				if ignoringUntilClosingTag && currentTag == "head" {
-					return true
-				}
-
 				if !currentTag.isEmpty {
 					onFind(tag: currentTag, value: values)
 				}
