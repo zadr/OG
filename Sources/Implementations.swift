@@ -11,7 +11,7 @@ public class Metadata: OGMetadata {
 	public private(set) var siteName: String? = nil
 	public private(set) var videoUrl: String? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		if let title = values["og:title"] as? String { self.title = title }
 		if let imageUrl = values["og:image"] as? String { self.imageUrl = imageUrl }
 		if let url = values["og:url"] as? String { self.url = url }
@@ -25,7 +25,7 @@ public class Metadata: OGMetadata {
 		if let videoUrl = values["og:video"] as? String { self.videoUrl = videoUrl }
 	}
 
-	public class func from(values: [String: AnyObject]) -> Metadata? {
+	public class func from(values: [String: OpenGraphType]) -> Metadata? {
 		guard let type = values["og:type"] as? String else { return nil }
 
 		switch type {
@@ -88,7 +88,7 @@ public class Media: Metadata, OGMedia {
 public final class Image: Media, OGImage {
 	public static var type: String { return "og:image" }
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
 		self.secureUrl = values["og:image:secure_url"] as? String
@@ -114,14 +114,14 @@ public final class Song: Music, OGSong {
 	public private(set) var track: Int? = nil
 	public private(set) var musician: OGProfile? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
 		if let duration = values["og:music:duration"] as? String { self.duration = Int(duration) }
-		if let albums = values["og:music:album"] as? [[String: AnyObject]] { self.album = albums.map { return Album(values: $0) } }
+		if let albums = values["og:music:album"] as? [[String: OpenGraphType]] { self.album = albums.map { return Album(values: $0) } }
 		if let disc = values["og:music:album:disc"] as? String { self.disc = Int(disc) }
 		if let track = values["og:music:track"] as? String { self.track = Int(track) }
-		if let musician = values["og:music:musician"] as? [String: AnyObject] { self.musician = Profile(values: musician) }
+		if let musician = values["og:music:musician"] as? [String: OpenGraphType] { self.musician = Profile(values: musician) }
 	}
 }
 
@@ -132,13 +132,13 @@ public final class Album: Music, OGAlbum {
 	public private(set) var musician: OGProfile? = nil
 	public private(set) var releaseDate: DateTime? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
-		if let song = values["og:music:song"] as? [String: AnyObject] { self.song = Song(values: song) }
+		if let song = values["og:music:song"] as? [String: OpenGraphType] { self.song = Song(values: song) }
 		if let disc = values["og:music:album:disc"] as? String { self.disc = Int(disc) }
 		if let track = values["og:music:track"] as? String { self.track = Int(track) }
-		if let musician = values["og:music:musician"] as? [String: AnyObject] { self.musician = Profile(values: musician) }
+		if let musician = values["og:music:musician"] as? [String: OpenGraphType] { self.musician = Profile(values: musician) }
 		if let releaseDate = values["og:music:release_date"] as? String { self.releaseDate = DateTime(value: releaseDate) }
 	}
 }
@@ -149,23 +149,23 @@ public final class Playlist: Music, OGPlaylist {
 	public private(set) var track: Int? = nil
 	public private(set) var creator: OGProfile? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
-		if let song = values["og:music:song"] as? [String: AnyObject] { self.song = Song(values: song) }
+		if let song = values["og:music:song"] as? [String: OpenGraphType] { self.song = Song(values: song) }
 		if let disc = values["og:music:album:disc"] as? String { self.disc = Int(disc) }
 		if let track = values["og:music:track"] as? String { self.track = Int(track) }
-		if let creator = values["og:music:creator"] as? [String: AnyObject] { self.creator = Profile(values: creator) }
+		if let creator = values["og:music:creator"] as? [String: OpenGraphType] { self.creator = Profile(values: creator) }
 	}
 }
 
 public final class RadioStation: Music, OGRadioStation {
 	public private(set) var creator: OGProfile? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
-		if let creator = values["og:music:creator"] as? [String: AnyObject] { self.creator = Profile(values: creator) }
+		if let creator = values["og:music:creator"] as? [String: OpenGraphType] { self.creator = Profile(values: creator) }
 	}
 }
 
@@ -180,13 +180,13 @@ public class Video: Media {
 	public private(set) var releaseDate: DateTime? = nil
 	public private(set) var tag: [String]? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
-		if let actors = values["og:video:actor"] as? [[String: AnyObject]] { self.actor = actors.map { return Profile(values: $0) } }
+		if let actors = values["og:video:actor"] as? [[String: OpenGraphType]] { self.actor = actors.map { return Profile(values: $0) } }
 		if let roles = values["og:video:actor:role"] as? [String] { self.roles = roles }
-		if let directors = values["og:video:director"] as? [[String: AnyObject]] { self.director = directors.map { return Profile(values: $0) } }
-		if let writers = values["og:video:writer"] as? [[String: AnyObject]] { self.writer = writers.map { return Profile(values: $0) } }
+		if let directors = values["og:video:director"] as? [[String: OpenGraphType]] { self.director = directors.map { return Profile(values: $0) } }
+		if let writers = values["og:video:writer"] as? [[String: OpenGraphType]] { self.writer = writers.map { return Profile(values: $0) } }
 		if let duration = values["og:video:duration"] as? String { self.duration = Int(duration) }
 		if let releaseDate = values["og:video:release_date"] as? String { self.releaseDate = DateTime(value: releaseDate) }
 		if let tags = values["og:video:tag"] as? [String] { self.tag = tags }
@@ -199,10 +199,10 @@ public final class OtherVideo: Video, OGOtherVideo {}
 public final class Episode: Video, OGEpisode {
 	public private(set) var series: OGTVShow? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
-		if let series = values["og:video:series"] as? [String: AnyObject] { self.series = TVShow(values: series) }
+		if let series = values["og:video:series"] as? [String: OpenGraphType] { self.series = TVShow(values: series) }
 	}
 }
 
@@ -216,13 +216,13 @@ public final class Article: Metadata, OGArticle {
 	public private(set) var section: String? = nil
 	public private(set) var tag: [String]? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
 		if let publishedTime = values["og:article:published_time"] as? String { self.publishedTime = DateTime(value: publishedTime) }
 		if let modifiedTime = values["og:article:modified_time"] as? String { self.modifiedTime = DateTime(value: modifiedTime) }
 		if let expirationTime = values["og:article:expiration_time"] as? String { self.expirationTime = DateTime(value: expirationTime) }
-		if let authors = values["og:article:author"] as? [[String: AnyObject]] { self.author = authors.map { return Profile(values: $0) } }
+		if let authors = values["og:article:author"] as? [[String: OpenGraphType]] { self.author = authors.map { return Profile(values: $0) } }
 		if let section = values["og:article:section"] as? String { self.section = section }
 		if let tags = values["og:article:tag"] as? [String] { self.tag = tags }
 	}
@@ -234,10 +234,10 @@ public final class Book: Metadata, OGBook {
 	public private(set) var releaseDate: DateTime? = nil
 	public private(set) var tag: [String]? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
-		if let authors = values["og:book:author"] as? [[String: AnyObject]] { self.author = authors.map { return Profile(values: $0) } }
+		if let authors = values["og:book:author"] as? [[String: OpenGraphType]] { self.author = authors.map { return Profile(values: $0) } }
 		if let isbn = values["og:book:isbn"] as? String { self.isbn = isbn }
 		if let releaseDate = values["og:book:release_date"] as? String { self.releaseDate = DateTime(value: releaseDate) }
 		if let tags = values["og:book:tag"] as? [String] { self.tag = tags }
@@ -250,7 +250,7 @@ public final class Profile: Metadata, OGProfile {
 	public private(set) var username: String? = nil
 	public private(set) var gender: String? = nil
 
-	public required init(values: [String: AnyObject]) {
+	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
 		if let firstName = values["og:profile:first_name"] as? String { self.firstName = firstName }

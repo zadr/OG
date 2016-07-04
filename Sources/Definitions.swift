@@ -9,7 +9,7 @@ extension Array: OpenGraphType {}
 // MARK: -
 
 public protocol OGMetadata {
-	init(values: [String: AnyObject])
+	init(values: [String: OpenGraphType])
 
 	var title: String { get }
 	var imageUrl: String { get }
