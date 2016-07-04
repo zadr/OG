@@ -8,14 +8,19 @@ print(testHTML)
 var metadata = [String: AnyObject]()
 let parser = Parser()
 parser.onFind = { (tag, values) in
-	if tag == "meta" {
+	if let tag = Tag(rawValue: "meta") where tag == .meta {
 		var property: String? = nil
 		var content: AnyObject? = nil
 
 		for value in values {
-			switch value.0 {
-			case "property": property = value.1 as? String
-			case "content": content = value.1
+			guard let pair = KeyValue(rawValue: value.0.lowercaseString) else {
+				print("Unsupported key '\(value.0)' with value '\(value.1)'")
+				continue
+			}
+
+			switch pair {
+			case .property: property = value.1 as? String
+			case .content: content = value.1
 			default: print("Unknown key \(value.0) with value \(value.1)")
 			}
 		}

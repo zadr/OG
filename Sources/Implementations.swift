@@ -380,3 +380,48 @@ public enum Determiner: RawRepresentable {
 	}
 }
 
+// MARK: -
+
+public enum Tag: RawRepresentable {
+	public typealias RawValue = String
+
+	case head
+	case meta
+
+	public init?(rawValue: RawValue) {
+		switch rawValue.lowercaseString {
+		case "head": self = .head
+		case "meta": self = .meta
+		default: return nil
+		}
+	}
+
+	public var rawValue: RawValue {
+		switch self {
+		case head: return "head"
+		case meta: return "meta"
+		}
+	}
+}
+
+public enum KeyValue: RawRepresentable {
+	public typealias RawValue = String
+
+	case property
+	case content
+
+	public init?(rawValue: RawValue) {
+		switch rawValue.lowercaseString {
+		case "property": self = .property
+		case "content": self = .content
+		default: return nil
+		}
+	}
+
+	public var rawValue: RawValue {
+		switch self {
+		case property: return "property"
+		case content: return "content"
+		}
+	}
+}
