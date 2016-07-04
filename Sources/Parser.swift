@@ -50,7 +50,7 @@ public final class Parser {
 			let character = text.characterAt(index: i)!
 			if !inString && character == Character(">") {
 				if state == .matchingComment {
-					state == .matchingTagName
+					state == .starting
 					ignoringUntilClosingTag = false
 					continue
 				} else if state == .matchingTagName {
