@@ -352,7 +352,7 @@ public enum Determiner: RawRepresentable {
 	case auto
 
 	public init?(rawValue: RawValue) {
-		switch rawValue {
+		switch rawValue.lowercaseString {
 		case "a": self = .a
 		case "an": self = .an
 		case "": self = .blank
