@@ -13,7 +13,7 @@
 		B69B9AB61D29FD98001EBF97 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB21D29FD98001EBF97 /* Extensions.swift */; };
 		B69B9AB71D29FD98001EBF97 /* Implementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB31D29FD98001EBF97 /* Implementations.swift */; };
 		B69B9AB81D29FD98001EBF97 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB41D29FD98001EBF97 /* Parser.swift */; };
-		B69B9ABC1D29FD9F001EBF97 /* OG.h in Headers */ = {isa = PBXBuildFile; fileRef = B69B9ABA1D29FD9F001EBF97 /* OG.h */; };
+		B69B9ABC1D29FD9F001EBF97 /* OG.h in Headers */ = {isa = PBXBuildFile; fileRef = B69B9ABA1D29FD9F001EBF97 /* OG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
