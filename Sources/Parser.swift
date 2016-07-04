@@ -18,7 +18,7 @@ public final class Parser {
 
 		var values = [String: String]()
 
-		var currentTags = [String]()
+		var tagStack = [String]()
 		var currentProperty = ""
 
 		var inString = false
@@ -29,7 +29,7 @@ public final class Parser {
 
 		let matchedTagName = {
 			state = .matchingPropertyName
-			currentTags.append(String(stack))
+			tagStack.append(String(stack))
 			stack.removeAll()
 		}
 
@@ -60,7 +60,7 @@ public final class Parser {
 
 				state = .starting
 
-				guard let currentTag = currentTags.popLast() else {
+				guard let currentTag = tagStack.popLast() else {
 					return false
 				}
 
@@ -157,6 +157,6 @@ public final class Parser {
 			}
 		}
 
-		return currentTags.isEmpty
+		return tagStack.isEmpty
 	}
 }
