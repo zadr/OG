@@ -338,3 +338,45 @@ public struct DateTime {
 		self.day = day!
 	}
 }
+
+// MARK: -
+
+public enum Determiner: RawRepresentable {
+	public typealias RawValue = String
+
+	case a
+	case an
+	case blank
+	case the
+	case quotes
+	case auto
+
+	public init?(rawValue: RawValue) {
+		switch rawValue {
+		case "a": self = .a
+		case "an": self = .an
+		case "": self = .blank
+		case "the": self = .the
+		case "\"": self = .quotes
+		case "'": self = .quotes
+		case "‘": self = .quotes
+		case "’": self = .quotes
+		case "“": self = .quotes
+		case "”": self = .quotes
+		case "auto": self = .auto
+		default: return nil
+		}
+	}
+
+	public var rawValue: RawValue {
+		switch self {
+		case a: return "a"
+		case an: return "an"
+		case blank: return ""
+		case the: return "the"
+		case quotes: return "\""
+		case auto: return "auto"
+		}
+	}
+}
+
