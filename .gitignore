@@ -15,4 +15,4 @@ syntax: glob
 
 *DerivedData*
 *.xcworkspacedata
-8mph.xcodeproj/project.xcworkspace
+*.xcodeproj/project.xcworkspace
