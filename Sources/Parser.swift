@@ -1,5 +1,6 @@
 private enum ParserState {
 	case starting
+	case matchingComment
 	case matchingTagName
 	case matchingPropertyName
 	case matchingPropertyValue
@@ -7,7 +8,7 @@ private enum ParserState {
 
 public final class Parser {
 	private var openTagCount: Int = 0
-	public var onFind: ((tag: String, value: [String: AnyObject]) -> Void)? = nil
+	public var onFind: ((tag: String, value: [String: String]) -> Void)? = nil
 
 	public init() {}
 
@@ -16,7 +17,7 @@ public final class Parser {
 			return false
 		}
 
-		var values = [String: AnyObject]()
+		var values = [String: String]()
 
 		var currentTags = [String]()
 		var currentProperty = ""
@@ -41,14 +42,18 @@ public final class Parser {
 
 		let matchedValue = {
 			state = .matchingPropertyName
-			values[currentProperty] = String(stack) as AnyObject
+			values[currentProperty] = String(stack)
 			stack.removeAll()
 		}
 
 		for i in 0 ..< text.utf8.count {
 			let character = text.characterAt(index: i)!
 			if !inString && character == Character(">") {
-				if state == .matchingTagName {
+				if state == .matchingComment {
+					state == .matchingTagName
+					ignoringUntilClosingTag = false
+					continue
+				} else if state == .matchingTagName {
 					matchedTagName()
 				} else if state == .matchingPropertyValue {
 					matchedValue()
@@ -97,6 +102,10 @@ public final class Parser {
 			}
 
 			if didSetMatchingTagState {
+				if nextCharacter == Character("!") {
+					state = .matchingComment
+					ignoringUntilClosingTag = true
+				}
 				continue
 			}
 
