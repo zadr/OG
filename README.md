@@ -58,13 +58,13 @@ parser.onFind = { (tag, values) in
 	}
 }
 
-let _ = parser.parse(html)
+let success = parser.parse(html)
 ```
 
-`2.` Turn the dictionary of attributes into an OpenGraph metadata object:
+`2.` Turn a dictionary of attributes into an OpenGraph metadata object:
 
 ```swift
-if let tag = Metadata.from(metadata) {
+if success, let tag = Metadata.from(metadata) {
 	print(tag)
 }
 ```
