@@ -94,6 +94,9 @@ public final class Image: VisualMedia, OGImage {
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
+		if let url = values["og:image"] as? String { self.url = url }
+		if let url = values["og:image:url"] as? String { self.url = url }
+
 		self.secureUrl = values["og:image:secure_url"] as? String
 		self.mimeType = values["og:image:type"] as? String
 
@@ -109,6 +112,7 @@ public class Music: Media, OGMusic {
 		super.init(values: values)
 
 		if let url = values["og:audio"] as? String { self.url = url }
+		if let url = values["og:audio:url"] as? String { self.url = url }
 		if let secureUrl = values["og:audio:secure_url"] as? String { self.secureUrl = secureUrl }
 		if let mimeType = values["og:audio:type"] as? String { self.mimeType = mimeType }
 	}
@@ -191,6 +195,7 @@ public class Video: VisualMedia {
 		super.init(values: values)
 
 		if let url = values["og:video"] as? String { self.url = url }
+		if let url = values["og:video:url"] as? String { self.url = url }
 		if let secureUrl = values["og:video:secure_url"] as? String { self.secureUrl = secureUrl }
 		if let mimeType = values["og:video:type"] as? String { self.mimeType = mimeType }
 		if let width = values["og:video:width"] as? String { self.width = Double(width) }

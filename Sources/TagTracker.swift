@@ -1,13 +1,18 @@
-public protocol MetaTagTracking {
+public protocol TagTracking {
 	init()
 
-	var metadata: [String: OpenGraphType] { get }
+	var metadatum: [[String: OpenGraphType]] { get }
 
 	func track(tag: String, values: [String: String]) -> Bool
 }
 
-public final class MetaTagTracker {
-	public private(set) var metadata = [String: OpenGraphType]()
+public final class TagTracker {
+	public private(set) lazy var metadatum: [[String: OpenGraphType]] = {
+		var metadatum = [[String: OpenGraphType]]()
+		metadatum.append([String: OpenGraphType]())
+		return metadatum
+	}()
+
 
 	public init() {}
 
@@ -32,15 +37,24 @@ public final class MetaTagTracker {
 			}
 		}
 
+		var metadata = metadatum.popLast()!
+		if let property = property where metadata[property] != nil && property == "og:type" {
+			metadatum.append(metadata)
+			metadata = [String: OpenGraphType]()
+		}
+
 		if let property = property, content = content {
-			if var existing = metadata[property] as? [String] {
+			if var existing = metadata[property] as? [OpenGraphType] {
 				existing.append(property)
+				metadata[property] = existing
 			} else if let existing = metadata[property] {
 				metadata[property] = [ existing, content ]
 			} else {
 				metadata[property] = content
 			}
 		}
+
+		metadatum.append(metadata)
 
 		return true
 	}
