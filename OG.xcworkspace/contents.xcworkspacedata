@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:OG.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:OG.playground">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Documents">
+      <FileRef
+         location = "group:CONDUCT.md">
+      </FileRef>
+      <FileRef
+         location = "group:LICENSE.md">
+      </FileRef>
+      <FileRef
+         location = "group:README.md">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Package Manager Specifications">
+      <FileRef
+         location = "group:OG.podspec">
+      </FileRef>
+      <FileRef
+         location = "group:Package.swift">
+      </FileRef>
+   </Group>
+</Workspace>
