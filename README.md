@@ -35,13 +35,13 @@ What does using this look like?
 
 There are two steps to take:
 
-`1.` Parse `<meta>` tags out of html, keeping track of any relevant OpenGraph meta tags. To help with this, `OG` provides a barebones parser:
+`1.` Parse `<meta>` tags out of html, keeping track of any relevant OpenGraph meta tags. To help with this, `OG` provides a barebones parser and a tag tracking class:
 
 ```swift
 let parser = Parser()
-let metaTagTracker = MetaTagTracker()
+let tagTracker = TagTracker()
 parser.onFind = { (tag, values) in
-	if !metaTagTracker.track(tag, values: values) {
+	if !tagTracker.track(tag, values: values) {
 		print("refusing to track non-meta tag \(tag) with values \(values)")
 	}
 }
@@ -49,11 +49,14 @@ parser.onFind = { (tag, values) in
 let success = parser.parse(html)
 ```
 
-`2.` Turn a dictionary of attributes into an OpenGraph metadata object:
+`2.` Turn a dictionary of attributes into an OpenGraph metadata object.
+
+Note: In order to support OpenGraph's support for having multiple elements on a page, `TagTracker` uses an array to keep track of metadata.  
 
 ```swift
-if success, let tag = Metadata.from(metaTagTracker.metadata) {
-	print(tag)
+if success {
+	let tags = tagTracker.metadatum.map(Metadata.from)
+	print(tags)
 }
 ```
 
