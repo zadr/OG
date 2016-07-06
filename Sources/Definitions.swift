@@ -29,15 +29,18 @@ public protocol OGMetadata {
 public protocol OGMedia: OGMetadata {
 	var secureUrl: String? { get }
 	var mimeType: String? { get }
+}
+
+public protocol OGVisualMedia: OGMedia {
 	var width: Double? { get }
 	var height: Double? { get }
 }
 
-public protocol OGImage: OGMedia {}
+public protocol OGImage: OGVisualMedia {}
 
 // MARK: -
 
-public protocol OGMusic: OGMetadata {}
+public protocol OGMusic: OGMedia {}
 public protocol OGSong: OGMusic {
 	var duration: Int? { get }
 	var album: [OGAlbum]? { get }
@@ -67,7 +70,7 @@ public protocol OGRadioStation: OGMusic {
 
 // MARK: -
 
-public protocol OGVideo: OGMetadata {
+public protocol OGVideo: OGVisualMedia {
 	var actor: [OGProfile]? { get }
 	var roles: [String]? { get }
 	var director: [OGProfile]? { get }

@@ -81,30 +81,39 @@ extension Metadata: CustomStringConvertible {
 public class Media: Metadata, OGMedia {
 	public private(set) var secureUrl: String? = nil
 	public private(set) var mimeType: String? = nil
+}
+
+public class VisualMedia: Media, OGVisualMedia {
 	public private(set) var width: Double? = nil
 	public private(set) var height: Double? = nil
 }
 
-public final class Image: Media, OGImage {
+// MARK: -
+
+public final class Image: VisualMedia, OGImage {
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
 		self.secureUrl = values["og:image:secure_url"] as? String
 		self.mimeType = values["og:image:type"] as? String
 
-		if let width = values["og:image:width"] as? String {
-			self.width = Double(width)
-		}
-
-		if let height = values["og:image:height"] as? String {
-			self.height = Double(height)
-		}
+		if let width = values["og:image:width"] as? String { self.width = Double(width) }
+		if let height = values["og:image:height"] as? String { self.height = Double(height) }
 	}
 }
 
 // MARK: -
 
-public class Music: Metadata, OGMusic {}
+public class Music: Media, OGMusic {
+	public required init(values: [String: OpenGraphType]) {
+		super.init(values: values)
+
+		if let url = values["og:audio"] as? String { self.url = url }
+		if let secureUrl = values["og:audio:secure_url"] as? String { self.secureUrl = secureUrl }
+		if let mimeType = values["og:audio:type"] as? String { self.mimeType = mimeType }
+	}
+}
+
 public final class Song: Music, OGSong {
 	public private(set) var duration: Int? = nil
 	public private(set) var album: [OGAlbum]? = nil
@@ -169,7 +178,7 @@ public final class RadioStation: Music, OGRadioStation {
 
 // MARK: -
 
-public class Video: Media {
+public class Video: VisualMedia {
 	public private(set) var actor: [OGProfile]? = nil
 	public private(set) var roles: [String]? = nil
 	public private(set) var director: [OGProfile]? = nil
@@ -180,6 +189,12 @@ public class Video: Media {
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
+
+		if let url = values["og:video"] as? String { self.url = url }
+		if let secureUrl = values["og:video:secure_url"] as? String { self.secureUrl = secureUrl }
+		if let mimeType = values["og:video:type"] as? String { self.mimeType = mimeType }
+		if let width = values["og:video:width"] as? String { self.width = Double(width) }
+		if let height = values["og:video:height"] as? String { self.height = Double(height) }
 
 		if let actors = values["og:video:actor"] as? [[String: OpenGraphType]] { self.actor = actors.map { return Profile(values: $0) } }
 		if let roles = values["og:video:actor:role"] as? [String] { self.roles = roles }
