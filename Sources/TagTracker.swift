@@ -3,11 +3,11 @@ public protocol TagTracking {
 
 	var metadatum: [[String: OpenGraphType]] { get }
 
-	func track(tag: String, values: [String: String]) -> Bool
+	func track(_ tag: String, values: [String: String]) -> Bool
 }
 
 public final class TagTracker {
-	public private(set) lazy var metadatum: [[String: OpenGraphType]] = {
+	public fileprivate(set) lazy var metadatum: [[String: OpenGraphType]] = {
 		var metadatum = [[String: OpenGraphType]]()
 		metadatum.append([String: OpenGraphType]())
 		return metadatum
@@ -16,8 +16,8 @@ public final class TagTracker {
 
 	public init() {}
 
-	public func track(tag: String, values: [String: String]) -> Bool {
-		guard let tag = Tag(rawValue: tag) where tag == .meta else {
+	public func track(_ tag: String, values: [String: String]) -> Bool {
+		guard let tag = Tag(rawValue: tag), tag == .meta else {
 			return false
 		}
 
@@ -25,7 +25,7 @@ public final class TagTracker {
 		var content: String? = nil
 
 		for value in values {
-			guard let pair = KeyValue(rawValue: value.0.lowercaseString) else {
+			guard let pair = KeyValue(rawValue: value.0.lowercased()) else {
 				continue
 			}
 
@@ -38,12 +38,12 @@ public final class TagTracker {
 		}
 
 		var metadata = metadatum.popLast()!
-		if let property = property where metadata[property] != nil && property == "og:type" {
+		if let property = property, metadata[property] != nil && property == "og:type" {
 			metadatum.append(metadata)
 			metadata = [String: OpenGraphType]()
 		}
 
-		if let property = property, content = content {
+		if let property = property, let content = content {
 			if var existing = metadata[property] as? [OpenGraphType] {
 				existing.append(property)
 				metadata[property] = existing
@@ -69,7 +69,7 @@ private enum Tag: RawRepresentable {
 	case meta
 
 	init?(rawValue: RawValue) {
-		switch rawValue.lowercaseString {
+		switch rawValue.lowercased() {
 		case "head": self = .head
 		case "meta": self = .meta
 		default: return nil
@@ -78,8 +78,8 @@ private enum Tag: RawRepresentable {
 
 	var rawValue: RawValue {
 		switch self {
-		case head: return "head"
-		case meta: return "meta"
+		case .head: return "head"
+		case .meta: return "meta"
 		}
 	}
 }
@@ -91,7 +91,7 @@ private enum KeyValue: RawRepresentable {
 	case content
 
 	init?(rawValue: RawValue) {
-		switch rawValue.lowercaseString {
+		switch rawValue.lowercased() {
 		case "property": self = .property
 		case "content": self = .content
 		default: return nil
@@ -100,8 +100,8 @@ private enum KeyValue: RawRepresentable {
 
 	var rawValue: RawValue {
 		switch self {
-		case property: return "property"
-		case content: return "content"
+		case .property: return "property"
+		case .content: return "content"
 		}
 	}
 }

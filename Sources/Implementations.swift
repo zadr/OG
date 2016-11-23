@@ -1,15 +1,15 @@
-public class Metadata: OGMetadata {
-	public private(set) var title: String = ""
-	public private(set) var imageUrl: String = ""
-	public private(set) var url: String = ""
+open class Metadata: OGMetadata {
+	open fileprivate(set) var title: String = ""
+	open fileprivate(set) var imageUrl: String = ""
+	open fileprivate(set) var url: String = ""
 
-	public private(set) var audioUrl: String? = nil
-	public private(set) var graphDescription: String? = nil
-	public private(set) var determiner: Determiner? = nil
-	public private(set) var locale: String? = nil
-	public private(set) var alternateLocales: [String]? = nil
-	public private(set) var siteName: String? = nil
-	public private(set) var videoUrl: String? = nil
+	open fileprivate(set) var audioUrl: String? = nil
+	open fileprivate(set) var graphDescription: String? = nil
+	open fileprivate(set) var determiner: Determiner? = nil
+	open fileprivate(set) var locale: String? = nil
+	open fileprivate(set) var alternateLocales: [String]? = nil
+	open fileprivate(set) var siteName: String? = nil
+	open fileprivate(set) var videoUrl: String? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		if let title = values["og:title"] as? String { self.title = title }
@@ -25,7 +25,7 @@ public class Metadata: OGMetadata {
 		if let videoUrl = values["og:video"] as? String { self.videoUrl = videoUrl }
 	}
 
-	public class func from(values: [String: OpenGraphType]) -> Metadata? {
+	open class func from(_ values: [String: OpenGraphType]) -> Metadata? {
 		guard let type = values["og:type"] as? String else { return nil }
 
 		switch type {
@@ -49,16 +49,16 @@ extension Metadata: CustomStringConvertible {
 	public var description: String {
 		var mirrors = [Mirror]()
 		var mirror: Mirror? = Mirror(reflecting: self)
-		var description = "<\(unsafeAddressOf(self))> \(mirror!.subjectType): {"
+		var description = "<\(Unmanaged.passUnretained(self).toOpaque())> \(mirror!.subjectType): {"
 
 		while mirror != nil {
-			mirrors.insert(mirror!, atIndex: 0)
-			mirror = mirror!.superclassMirror()
+			mirrors.insert(mirror!, at: 0)
+			mirror = mirror!.superclassMirror
 		}
 
 		for i in 0 ..< mirrors.count {
 			let mirror = mirrors[i]
-			let tabsForLevel = String(repeating: Character("\t"), count: i + 1)
+			let tabsForLevel = String(repeating: "\t", count: i + 1)
 
 			description += mirror.children.flatMap {
 				guard let key = $0.label else { return nil }
@@ -68,8 +68,8 @@ extension Metadata: CustomStringConvertible {
 			description += "\n\(tabsForLevel)\(mirror.subjectType): {"
 		}
 
-		for i in mirrors.count.stride(to: 0, by: -1) {
-			description += "\n\(String(repeating: Character("\t"), count: i))}"
+		for i in stride(from: mirrors.count, to: 0, by: -1) {
+			description += "\n\(String(repeating: "\t", count: i))}"
 		}
 
 		return description + "\n}"
@@ -78,14 +78,14 @@ extension Metadata: CustomStringConvertible {
 
 // MARK: -
 
-public class Media: Metadata, OGMedia {
-	public private(set) var secureUrl: String? = nil
-	public private(set) var mimeType: String? = nil
+open class Media: Metadata, OGMedia {
+	open fileprivate(set) var secureUrl: String? = nil
+	open fileprivate(set) var mimeType: String? = nil
 }
 
-public class VisualMedia: Media, OGVisualMedia {
-	public private(set) var width: Double? = nil
-	public private(set) var height: Double? = nil
+open class VisualMedia: Media, OGVisualMedia {
+	open fileprivate(set) var width: Double? = nil
+	open fileprivate(set) var height: Double? = nil
 }
 
 // MARK: -
@@ -107,7 +107,7 @@ public final class Image: VisualMedia, OGImage {
 
 // MARK: -
 
-public class Music: Media, OGMusic {
+open class Music: Media, OGMusic {
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
@@ -119,11 +119,11 @@ public class Music: Media, OGMusic {
 }
 
 public final class Song: Music, OGSong {
-	public private(set) var duration: Int? = nil
-	public private(set) var album: [OGAlbum]? = nil
-	public private(set) var disc: Int? = nil
-	public private(set) var track: Int? = nil
-	public private(set) var musician: OGProfile? = nil
+	public fileprivate(set) var duration: Int? = nil
+	public fileprivate(set) var album: [OGAlbum]? = nil
+	public fileprivate(set) var disc: Int? = nil
+	public fileprivate(set) var track: Int? = nil
+	public fileprivate(set) var musician: OGProfile? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -137,11 +137,11 @@ public final class Song: Music, OGSong {
 }
 
 public final class Album: Music, OGAlbum {
-	public private(set) var song: OGSong? = nil
-	public private(set) var disc: Int? = nil
-	public private(set) var track: Int? = nil
-	public private(set) var musician: OGProfile? = nil
-	public private(set) var releaseDate: DateTime? = nil
+	public fileprivate(set) var song: OGSong? = nil
+	public fileprivate(set) var disc: Int? = nil
+	public fileprivate(set) var track: Int? = nil
+	public fileprivate(set) var musician: OGProfile? = nil
+	public fileprivate(set) var releaseDate: DateTime? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -155,10 +155,10 @@ public final class Album: Music, OGAlbum {
 }
 
 public final class Playlist: Music, OGPlaylist {
-	public private(set) var song: OGSong? = nil
-	public private(set) var disc: Int? = nil
-	public private(set) var track: Int? = nil
-	public private(set) var creator: OGProfile? = nil
+	public fileprivate(set) var song: OGSong? = nil
+	public fileprivate(set) var disc: Int? = nil
+	public fileprivate(set) var track: Int? = nil
+	public fileprivate(set) var creator: OGProfile? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -171,7 +171,7 @@ public final class Playlist: Music, OGPlaylist {
 }
 
 public final class RadioStation: Music, OGRadioStation {
-	public private(set) var creator: OGProfile? = nil
+	public fileprivate(set) var creator: OGProfile? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -182,14 +182,14 @@ public final class RadioStation: Music, OGRadioStation {
 
 // MARK: -
 
-public class Video: VisualMedia {
-	public private(set) var actor: [OGProfile]? = nil
-	public private(set) var roles: [String]? = nil
-	public private(set) var director: [OGProfile]? = nil
-	public private(set) var writer: [OGProfile]? = nil
-	public private(set) var duration: Int? = nil
-	public private(set) var releaseDate: DateTime? = nil
-	public private(set) var tag: [String]? = nil
+open class Video: VisualMedia {
+	open fileprivate(set) var actor: [OGProfile]? = nil
+	open fileprivate(set) var roles: [String]? = nil
+	open fileprivate(set) var director: [OGProfile]? = nil
+	open fileprivate(set) var writer: [OGProfile]? = nil
+	open fileprivate(set) var duration: Int? = nil
+	open fileprivate(set) var releaseDate: DateTime? = nil
+	open fileprivate(set) var tag: [String]? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -215,7 +215,7 @@ public final class Movie: Video, OGMovie {}
 public final class TVShow: Video, OGTVShow {}
 public final class OtherVideo: Video, OGOtherVideo {}
 public final class Episode: Video, OGEpisode {
-	public private(set) var series: OGTVShow? = nil
+	public fileprivate(set) var series: OGTVShow? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -227,12 +227,12 @@ public final class Episode: Video, OGEpisode {
 // MARK: -
 
 public final class Article: Metadata, OGArticle {
-	public private(set) var publishedTime: DateTime? = nil
-	public private(set) var modifiedTime: DateTime? = nil
-	public private(set) var expirationTime: DateTime? = nil
-	public private(set) var author: [OGProfile]? = nil
-	public private(set) var section: String? = nil
-	public private(set) var tag: [String]? = nil
+	public fileprivate(set) var publishedTime: DateTime? = nil
+	public fileprivate(set) var modifiedTime: DateTime? = nil
+	public fileprivate(set) var expirationTime: DateTime? = nil
+	public fileprivate(set) var author: [OGProfile]? = nil
+	public fileprivate(set) var section: String? = nil
+	public fileprivate(set) var tag: [String]? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -247,10 +247,10 @@ public final class Article: Metadata, OGArticle {
 }
 
 public final class Book: Metadata, OGBook {
-	public private(set) var author: [OGProfile]? = nil
-	public private(set) var isbn: String? = nil
-	public private(set) var releaseDate: DateTime? = nil
-	public private(set) var tag: [String]? = nil
+	public fileprivate(set) var author: [OGProfile]? = nil
+	public fileprivate(set) var isbn: String? = nil
+	public fileprivate(set) var releaseDate: DateTime? = nil
+	public fileprivate(set) var tag: [String]? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -263,10 +263,10 @@ public final class Book: Metadata, OGBook {
 }
 
 public final class Profile: Metadata, OGProfile {
-	public private(set) var firstName: String? = nil
-	public private(set) var lastName: String? = nil
-	public private(set) var username: String? = nil
-	public private(set) var gender: String? = nil
+	public fileprivate(set) var firstName: String? = nil
+	public fileprivate(set) var lastName: String? = nil
+	public fileprivate(set) var username: String? = nil
+	public fileprivate(set) var gender: String? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -279,7 +279,7 @@ public final class Profile: Metadata, OGProfile {
 }
 
 public struct DateTime {
-	private enum DateTimeProperty {
+	fileprivate enum DateTimeProperty {
 		case year
 		case month
 		case day
@@ -370,7 +370,7 @@ public enum Determiner: RawRepresentable {
 	case auto
 
 	public init?(rawValue: RawValue) {
-		switch rawValue.lowercaseString {
+		switch rawValue.lowercased() {
 		case "a": self = .a
 		case "an": self = .an
 		case "": self = .blank
@@ -388,12 +388,12 @@ public enum Determiner: RawRepresentable {
 
 	public var rawValue: RawValue {
 		switch self {
-		case a: return "a"
-		case an: return "an"
-		case blank: return ""
-		case the: return "the"
-		case quotes: return "\""
-		case auto: return "auto"
+		case .a: return "a"
+		case .an: return "an"
+		case .blank: return ""
+		case .the: return "the"
+		case .quotes: return "\""
+		case .auto: return "auto"
 		}
 	}
 }

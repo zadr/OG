@@ -7,11 +7,11 @@ private enum ParserState {
 }
 
 public final class Parser {
-	public var onFind: ((tag: String, value: [String: String]) -> Void)? = nil
+	public var onFind: ((_ tag: String, _ value: [String: String]) -> Void)? = nil
 
 	public init() {}
 
-	public func parse(text: String) -> Bool {
+	public func parse(_ text: String) -> Bool {
 		guard let onFind = onFind else {
 			return false
 		}
@@ -49,7 +49,7 @@ public final class Parser {
 			let character = text.characterAt(index: i)!
 			if !inString && character == Character(">") {
 				if state == .matchingComment {
-					state == .starting
+					state = .starting
 					ignoringUntilClosingTag = false
 					continue
 				} else if state == .matchingTagName {
@@ -65,7 +65,7 @@ public final class Parser {
 				}
 
 				if !currentTag.isEmpty {
-					onFind(tag: currentTag, value: values)
+					onFind(currentTag, values)
 				}
 
 				values.removeAll()
