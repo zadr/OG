@@ -1,7 +1,7 @@
 import OG
 
-let testPath = NSBundle.mainBundle().pathForResource("demo", ofType: "html")!
-let testHTML = try! NSString(contentsOfFile: testPath, encoding: NSUTF8StringEncoding) as String
+let testPath = Bundle.main.path(forResource: "demo", ofType: "html")!
+let testHTML = try! NSString(contentsOfFile: testPath, encoding: 4) as String
 print(testHTML)
 
 let parser = Parser()
