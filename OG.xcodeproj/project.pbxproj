@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		B6261D931EC93DDA00706C24 /* OGPreviewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6261D921EC93DDA00706C24 /* OGPreviewable.swift */; };
+		B6261D961EC94B4500706C24 /* OGPreviewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6261D921EC93DDA00706C24 /* OGPreviewable.swift */; };
+		B6261D971EC94B4500706C24 /* OGTypeProtcols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */; };
+		B6261D981EC94B4500706C24 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB41D29FD98001EBF97 /* Parser.swift */; };
+		B6261D991EC94B4500706C24 /* OGTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB31D29FD98001EBF97 /* OGTypes.swift */; };
+		B6261D9A1EC94B4500706C24 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB21D29FD98001EBF97 /* StringExtensions.swift */; };
+		B6261D9B1EC94B4500706C24 /* TagTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC94E41D2CBDBF00C9A005 /* TagTracker.swift */; };
+		B6261D9E1EC94B4500706C24 /* OG.h in Headers */ = {isa = PBXBuildFile; fileRef = B69B9ABA1D29FD9F001EBF97 /* OG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B69B9A8F1D29F3CC001EBF97 /* OG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B69B9A841D29F3CC001EBF97 /* OG.framework */; };
 		B69B9AB01D29FC72001EBF97 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AAF1D29FC72001EBF97 /* Tests.swift */; };
 		B69B9AB51D29FD98001EBF97 /* OGTypeProtcols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */; };
@@ -30,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		B6261D921EC93DDA00706C24 /* OGPreviewable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OGPreviewable.swift; path = Sources/OGPreviewable.swift; sourceTree = SOURCE_ROOT; };
+		B6261DA31EC94B4500706C24 /* OG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69B9A841D29F3CC001EBF97 /* OG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69B9A8E1D29F3CC001EBF97 /* OGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69B9A951D29F3CC001EBF97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,6 +52,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B6261D9C1EC94B4500706C24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B69B9A801D29F3CC001EBF97 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,6 +91,7 @@
 			children = (
 				B69B9A841D29F3CC001EBF97 /* OG.framework */,
 				B69B9A8E1D29F3CC001EBF97 /* OGTests.xctest */,
+				B6261DA31EC94B4500706C24 /* OG.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +125,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		B6261D9D1EC94B4500706C24 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6261D9E1EC94B4500706C24 /* OG.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B69B9A811D29F3CC001EBF97 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -120,9 +144,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B69B9A831D29F3CC001EBF97 /* OG */ = {
+		B6261D941EC94B4500706C24 /* OG-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B69B9A981D29F3CC001EBF97 /* Build configuration list for PBXNativeTarget "OG" */;
+			buildConfigurationList = B6261DA01EC94B4500706C24 /* Build configuration list for PBXNativeTarget "OG-macOS" */;
+			buildPhases = (
+				B6261D951EC94B4500706C24 /* Sources */,
+				B6261D9C1EC94B4500706C24 /* Frameworks */,
+				B6261D9D1EC94B4500706C24 /* Headers */,
+				B6261D9F1EC94B4500706C24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OG-macOS";
+			productName = OG;
+			productReference = B6261DA31EC94B4500706C24 /* OG.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B69B9A831D29F3CC001EBF97 /* OG-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B69B9A981D29F3CC001EBF97 /* Build configuration list for PBXNativeTarget "OG-iOS" */;
 			buildPhases = (
 				B69B9A7F1D29F3CC001EBF97 /* Sources */,
 				B69B9A801D29F3CC001EBF97 /* Frameworks */,
@@ -133,7 +175,7 @@
 			);
 			dependencies = (
 			);
-			name = OG;
+			name = "OG-iOS";
 			productName = OG;
 			productReference = B69B9A841D29F3CC001EBF97 /* OG.framework */;
 			productType = "com.apple.product-type.framework";
@@ -188,13 +230,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B69B9A831D29F3CC001EBF97 /* OG */,
+				B69B9A831D29F3CC001EBF97 /* OG-iOS */,
+				B6261D941EC94B4500706C24 /* OG-macOS */,
 				B69B9A8D1D29F3CC001EBF97 /* OGTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B6261D9F1EC94B4500706C24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B69B9A821D29F3CC001EBF97 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -212,6 +262,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B6261D951EC94B4500706C24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6261D961EC94B4500706C24 /* OGPreviewable.swift in Sources */,
+				B6261D971EC94B4500706C24 /* OGTypeProtcols.swift in Sources */,
+				B6261D981EC94B4500706C24 /* Parser.swift in Sources */,
+				B6261D991EC94B4500706C24 /* OGTypes.swift in Sources */,
+				B6261D9A1EC94B4500706C24 /* StringExtensions.swift in Sources */,
+				B6261D9B1EC94B4500706C24 /* TagTracker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B69B9A7F1D29F3CC001EBF97 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,12 +301,56 @@
 /* Begin PBXTargetDependency section */
 		B69B9A911D29F3CC001EBF97 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B69B9A831D29F3CC001EBF97 /* OG */;
+			target = B69B9A831D29F3CC001EBF97 /* OG-iOS */;
 			targetProxy = B69B9A901D29F3CC001EBF97 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		B6261DA11EC94B4500706C24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = net.thisismyinter.OG;
+				PRODUCT_MODULE_NAME = OG;
+				PRODUCT_NAME = OG;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B6261DA21EC94B4500706C24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = net.thisismyinter.OG;
+				PRODUCT_MODULE_NAME = OG;
+				PRODUCT_NAME = OG;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		B69B9A961D29F3CC001EBF97 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -346,7 +453,8 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.thisismyinter.OG;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = OG;
+				PRODUCT_NAME = OG;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -364,7 +472,8 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.thisismyinter.OG;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = OG;
+				PRODUCT_NAME = OG;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -398,6 +507,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B6261DA01EC94B4500706C24 /* Build configuration list for PBXNativeTarget "OG-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6261DA11EC94B4500706C24 /* Debug */,
+				B6261DA21EC94B4500706C24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B69B9A7E1D29F3CC001EBF97 /* Build configuration list for PBXProject "OG" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -407,7 +525,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B69B9A981D29F3CC001EBF97 /* Build configuration list for PBXNativeTarget "OG" */ = {
+		B69B9A981D29F3CC001EBF97 /* Build configuration list for PBXNativeTarget "OG-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B69B9A991D29F3CC001EBF97 /* Debug */,
