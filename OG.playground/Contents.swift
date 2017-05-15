@@ -1,5 +1,11 @@
 import OG
 
+let url = Bundle.main.url(forResource: "demo", withExtension: "html")!
+url.fetchOpenGraphData {
+	print($0)
+}
+print(url)
+
 let testPath = Bundle.main.path(forResource: "demo", ofType: "html")!
 let testHTML = try! NSString(contentsOfFile: testPath, encoding: 4) as String
 print(testHTML)

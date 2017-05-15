@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B6261D931EC93DDA00706C24 /* OGPreviewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6261D921EC93DDA00706C24 /* OGPreviewable.swift */; };
 		B69B9A8F1D29F3CC001EBF97 /* OG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B69B9A841D29F3CC001EBF97 /* OG.framework */; };
 		B69B9AB01D29FC72001EBF97 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AAF1D29FC72001EBF97 /* Tests.swift */; };
-		B69B9AB51D29FD98001EBF97 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB11D29FD97001EBF97 /* Definitions.swift */; };
-		B69B9AB61D29FD98001EBF97 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB21D29FD98001EBF97 /* Extensions.swift */; };
-		B69B9AB71D29FD98001EBF97 /* Implementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB31D29FD98001EBF97 /* Implementations.swift */; };
+		B69B9AB51D29FD98001EBF97 /* OGTypeProtcols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */; };
+		B69B9AB61D29FD98001EBF97 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB21D29FD98001EBF97 /* StringExtensions.swift */; };
+		B69B9AB71D29FD98001EBF97 /* OGTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB31D29FD98001EBF97 /* OGTypes.swift */; };
 		B69B9AB81D29FD98001EBF97 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB41D29FD98001EBF97 /* Parser.swift */; };
 		B69B9ABC1D29FD9F001EBF97 /* OG.h in Headers */ = {isa = PBXBuildFile; fileRef = B69B9ABA1D29FD9F001EBF97 /* OG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B6DC94E51D2CBDBF00C9A005 /* TagTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC94E41D2CBDBF00C9A005 /* TagTracker.swift */; };
@@ -28,13 +29,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B6261D921EC93DDA00706C24 /* OGPreviewable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OGPreviewable.swift; path = Sources/OGPreviewable.swift; sourceTree = SOURCE_ROOT; };
 		B69B9A841D29F3CC001EBF97 /* OG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69B9A8E1D29F3CC001EBF97 /* OGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69B9A951D29F3CC001EBF97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B69B9AAF1D29FC72001EBF97 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tests.swift; path = Tests/Tests.swift; sourceTree = SOURCE_ROOT; };
-		B69B9AB11D29FD97001EBF97 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Definitions.swift; path = Sources/Definitions.swift; sourceTree = SOURCE_ROOT; };
-		B69B9AB21D29FD98001EBF97 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Sources/Extensions.swift; sourceTree = SOURCE_ROOT; };
-		B69B9AB31D29FD98001EBF97 /* Implementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Implementations.swift; path = Sources/Implementations.swift; sourceTree = SOURCE_ROOT; };
+		B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OGTypeProtcols.swift; path = Sources/OGTypeProtcols.swift; sourceTree = SOURCE_ROOT; };
+		B69B9AB21D29FD98001EBF97 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Sources/StringExtensions.swift; sourceTree = SOURCE_ROOT; };
+		B69B9AB31D29FD98001EBF97 /* OGTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OGTypes.swift; path = Sources/OGTypes.swift; sourceTree = SOURCE_ROOT; };
 		B69B9AB41D29FD98001EBF97 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = Sources/Parser.swift; sourceTree = SOURCE_ROOT; };
 		B69B9ABA1D29FD9F001EBF97 /* OG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OG.h; path = Sources/OG.h; sourceTree = SOURCE_ROOT; };
 		B69B9ABD1D29FDC2001EBF97 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
@@ -81,10 +83,11 @@
 		B69B9A861D29F3CC001EBF97 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				B69B9AB11D29FD97001EBF97 /* Definitions.swift */,
-				B69B9AB21D29FD98001EBF97 /* Extensions.swift */,
-				B69B9AB31D29FD98001EBF97 /* Implementations.swift */,
+				B6261D921EC93DDA00706C24 /* OGPreviewable.swift */,
+				B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */,
+				B69B9AB31D29FD98001EBF97 /* OGTypes.swift */,
 				B69B9AB41D29FD98001EBF97 /* Parser.swift */,
+				B69B9AB21D29FD98001EBF97 /* StringExtensions.swift */,
 				B6DC94E41D2CBDBF00C9A005 /* TagTracker.swift */,
 				B69B9ABA1D29FD9F001EBF97 /* OG.h */,
 				B69B9ABD1D29FDC2001EBF97 /* Info.plist */,
@@ -213,10 +216,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B69B9AB51D29FD98001EBF97 /* Definitions.swift in Sources */,
+				B6261D931EC93DDA00706C24 /* OGPreviewable.swift in Sources */,
+				B69B9AB51D29FD98001EBF97 /* OGTypeProtcols.swift in Sources */,
 				B69B9AB81D29FD98001EBF97 /* Parser.swift in Sources */,
-				B69B9AB71D29FD98001EBF97 /* Implementations.swift in Sources */,
-				B69B9AB61D29FD98001EBF97 /* Extensions.swift in Sources */,
+				B69B9AB71D29FD98001EBF97 /* OGTypes.swift in Sources */,
+				B69B9AB61D29FD98001EBF97 /* StringExtensions.swift in Sources */,
 				B6DC94E51D2CBDBF00C9A005 /* TagTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

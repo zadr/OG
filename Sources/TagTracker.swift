@@ -13,7 +13,6 @@ public final class TagTracker {
 		return metadatum
 	}()
 
-
 	public init() {}
 
 	public func track(_ tag: String, values: [String: String]) -> Bool {

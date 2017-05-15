@@ -4,6 +4,8 @@ extension DateTime: OpenGraphType {}
 extension Double: OpenGraphType {}
 extension Int: OpenGraphType {}
 extension String: OpenGraphType {}
+
+// `Array` shouldn't be an `OpenGraphType` but is currently needed as an implementation detail of TagTracker
 extension Array: OpenGraphType {}
 
 // MARK: -
