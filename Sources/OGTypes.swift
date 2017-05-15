@@ -6,13 +6,20 @@ public class Metadata: OGMetadata {
 	public fileprivate(set) var audioUrl: String? = nil
 	public fileprivate(set) var graphDescription: String? = nil
 	public fileprivate(set) var determiner: Determiner? = nil
-	public fileprivate(set) var locale: String? = nil
-	public fileprivate(set) var alternateLocales: [String]? = nil
+	public fileprivate(set) var localeString: String? = nil
+	public fileprivate(set) var alternateLocaleStrings: [String]? = nil
 	public fileprivate(set) var siteName: String? = nil
 	public fileprivate(set) var videoUrl: String? = nil
 
 	public fileprivate(set) var rawData: [String: OpenGraphType]
 
+	/**
+		The designated initializer for OpenGraph metadata types.
+
+		Direct usage of this is discouraged; `Metadata.from(_:)` will switch over any `og:type` and create the right class automatically.
+
+	- parameter values: a dictionary of OpenGraph data
+	*/
 	public required init(values: [String: OpenGraphType]) {
 		rawData = values
 
@@ -23,12 +30,18 @@ public class Metadata: OGMetadata {
 		if let audioUrl = values["og:audio"] as? String { self.audioUrl = audioUrl }
 		if let graphDescription = values["og:description"] as? String { self.graphDescription = graphDescription }
 		if let determiner = values["og:determiner"] as? String { self.determiner = Determiner(rawValue: determiner) }
-		if let locale = values["og:locale:alternate"] as? String { self.locale = locale }
-		if let alternateLocales = values["og:locale:alternate"] as? [String] { self.alternateLocales = alternateLocales }
+		if let locale = values["og:locale:alternate"] as? String { self.localeString = locale }
+		if let alternateLocales = values["og:locale:alternate"] as? [String] { self.alternateLocaleStrings = alternateLocales }
 		if let siteName = values["og:site_name"] as? String { self.siteName = siteName }
 		if let videoUrl = values["og:video"] as? String { self.videoUrl = videoUrl }
 	}
 
+	/**
+		A class function to create an `OpenGraph` class for any supported OpenGraph type of object.
+
+		- parameter values: a dictionary of OpenGraph data
+		- returns: `nil` if `og:type` isn't specified in the `values` dictionary, otherwise an OpenGraph object type
+	*/
 	public class func from(_ values: [String: OpenGraphType]) -> Metadata? {
 		guard let type = values["og:type"] as? String else { return nil }
 
@@ -127,7 +140,7 @@ public final class Song: Music, OGSong {
 	public fileprivate(set) var album: [OGAlbum]? = nil
 	public fileprivate(set) var disc: Int? = nil
 	public fileprivate(set) var track: Int? = nil
-	public fileprivate(set) var musician: OGProfile? = nil
+	public fileprivate(set) var musician: [OGProfile]? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
@@ -136,7 +149,8 @@ public final class Song: Music, OGSong {
 		if let albums = values["og:music:album"] as? [[String: OpenGraphType]] { self.album = albums.map { return Album(values: $0) } }
 		if let disc = values["og:music:album:disc"] as? String { self.disc = Int(disc) }
 		if let track = values["og:music:track"] as? String { self.track = Int(track) }
-		if let musician = values["og:music:musician"] as? [String: OpenGraphType] { self.musician = Profile(values: musician) }
+		if let musician = values["og:music:musician"] as? [[String: OpenGraphType]] { self.musician = musician.map { return Profile(values: $0) } }
+		else if let musician = values["og:music:musician"] as? [String: OpenGraphType] { self.musician = [ Profile(values: musician) ] }
 	}
 }
 
@@ -144,7 +158,7 @@ public final class Album: Music, OGAlbum {
 	public fileprivate(set) var song: OGSong? = nil
 	public fileprivate(set) var disc: Int? = nil
 	public fileprivate(set) var track: Int? = nil
-	public fileprivate(set) var musician: OGProfile? = nil
+	public fileprivate(set) var musician: [OGProfile]? = nil
 	public fileprivate(set) var releaseDate: DateTime? = nil
 
 	public required init(values: [String: OpenGraphType]) {
@@ -153,34 +167,37 @@ public final class Album: Music, OGAlbum {
 		if let song = values["og:music:song"] as? [String: OpenGraphType] { self.song = Song(values: song) }
 		if let disc = values["og:music:album:disc"] as? String { self.disc = Int(disc) }
 		if let track = values["og:music:track"] as? String { self.track = Int(track) }
-		if let musician = values["og:music:musician"] as? [String: OpenGraphType] { self.musician = Profile(values: musician) }
+		if let musician = values["og:music:musician"] as? [[String: OpenGraphType]] { self.musician = musician.map { return Profile(values: $0) } }
+		else if let musician = values["og:music:musician"] as? [String: OpenGraphType] { self.musician = [ Profile(values: musician) ] }
 		if let releaseDate = values["og:music:release_date"] as? String { self.releaseDate = DateTime(value: releaseDate) }
 	}
 }
 
 public final class Playlist: Music, OGPlaylist {
-	public fileprivate(set) var song: OGSong? = nil
+	public fileprivate(set) var song: [OGSong]? = nil
 	public fileprivate(set) var disc: Int? = nil
 	public fileprivate(set) var track: Int? = nil
-	public fileprivate(set) var creator: OGProfile? = nil
+	public fileprivate(set) var creator: [OGProfile]? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
-		if let song = values["og:music:song"] as? [String: OpenGraphType] { self.song = Song(values: song) }
+		if let song = values["og:music:song"] as? [[String: OpenGraphType]] { self.song = song.map { return Song(values: $0) } }
 		if let disc = values["og:music:album:disc"] as? String { self.disc = Int(disc) }
 		if let track = values["og:music:track"] as? String { self.track = Int(track) }
-		if let creator = values["og:music:creator"] as? [String: OpenGraphType] { self.creator = Profile(values: creator) }
+		if let creator = values["og:music:creator"] as? [[String: OpenGraphType]] { self.creator = creator.map { return Profile(values: $0) } }
+		else if let creator = values["og:music:creator"] as? [String: OpenGraphType] { self.creator = [ Profile(values: creator) ] }
 	}
 }
 
 public final class RadioStation: Music, OGRadioStation {
-	public fileprivate(set) var creator: OGProfile? = nil
+	public fileprivate(set) var creator: [OGProfile]? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
-		if let creator = values["og:music:creator"] as? [String: OpenGraphType] { self.creator = Profile(values: creator) }
+		if let creator = values["og:music:creator"] as? [[String: OpenGraphType]] { self.creator = creator.map { return Profile(values: $0) } }
+		else if let creator = values["og:music:creator"] as? [String: OpenGraphType] { self.creator = [ Profile(values: creator) ] }
 	}
 }
 
@@ -282,6 +299,7 @@ public final class Profile: Metadata, OGProfile {
 	}
 }
 
+/// A DateTime represents a temporal value composed of a date (year, month, day) and an optional time component (hours, minutes)
 public struct DateTime {
 	fileprivate enum DateTimeProperty {
 		case year
@@ -298,6 +316,11 @@ public struct DateTime {
 	var hours: Int?
 	var minutes: Int?
 
+	/**
+		Create a `DateTime` object for a given temporal value.
+
+		- parameter value: An ISO8601-formatted string to be parsed into a date.
+	*/
 	init(value: String) {
 		var year: Int? = nil
 		var month: Int? = nil
@@ -363,6 +386,7 @@ public struct DateTime {
 
 // MARK: -
 
+/// The word that appears before this object's title in a sentence. An enum of (a, an, the, "", auto). If auto is chosen, the consumer of your data should chose between "a" or "an". Default is "" (blank).
 public enum Determiner: RawRepresentable {
 	public typealias RawValue = String
 

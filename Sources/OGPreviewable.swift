@@ -1,6 +1,14 @@
 import Foundation
 
 public protocol OGPreviewable {
+	/**
+	Fetch data from a URL and attempt to parse OpenGraph tags out of it
+
+	- Parameter session: The `URLSession` to make a data task on. Defaults to `URLSession.shared`
+	- Parameter completion: A block to call when a data task finishes downloading and parsing data. The first parameter is a boolean that indicates if parsing succeeded or failed, and the second is an array of OpenGraph metadata types from a website
+
+	// note: if this changes, change the documentation in the extension on `ReferenceConvertible` below
+	*/
 	func fetchOpenGraphData(session: URLSession, completion: @escaping ((Bool, [OGMetadata]?) -> Void))
 }
 
@@ -18,14 +26,14 @@ extension URLRequest: OGPreviewable {
 				let tagTracker = TagTracker()
 
 				parser.onFind = { (tag, values) in
-					if !tagTracker.track(tag, values: values) {
+					if !tagTracker.track(tag: tag, values: values) {
 						#if OG_DEBUG_LOGGING_ENABLED
 							print("refusing to track non-meta tag \(tag) with values \(values)")
 						#endif
 					}
 				}
 
-				if parser.parse(html) {
+				if parser.parse(text: html) {
 					let graphs = tagTracker.metadatum.flatMap(Metadata.from)
 					completion(true, graphs)
 				} else {
@@ -43,6 +51,14 @@ extension URLRequest: OGPreviewable {
 }
 
 extension ReferenceConvertible where ReferenceType: OGPreviewable {
+	/**
+	Fetch data from a URL and attempt to parse OpenGraph tags out of it
+
+	- Parameter session: The `URLSession` to make a data task on. Defaults to `URLSession.shared`
+	- Parameter completion: A block to call when a data task finishes downloading and parsing data. The first parameter is a boolean that indicates if parsing succeeded or failed, and the second is an array of OpenGraph metadata types from a website
+
+	note: if this changes, change the documentation in the protocol declaration of `OGPreviewable` above
+	*/
 	public func fetchOpenGraphData(session: URLSession = .shared, completion: @escaping ((Bool, [OGMetadata]?) -> Void)) {
 		(self as! ReferenceType).fetchOpenGraphData(session: session, completion: completion)
 	}

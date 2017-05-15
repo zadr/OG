@@ -1,17 +1,46 @@
-private enum ParserState {
-	case starting
-	case matchingComment
-	case matchingTagName
-	case matchingPropertyName
-	case matchingPropertyValue
-}
-
+/**
+	A barebones HTML parser that reports tags as it encounters them
+*/
 public final class Parser {
+	private enum ParserState {
+		case starting
+		case matchingComment
+		case matchingTagName
+		case matchingPropertyName
+		case matchingPropertyValue
+	}
+
+	/**
+		A block to call whenever an HTML tag is encountered and successfully parsed.
+		
+		- block parameter 0: a `String` that represents the tag that was parsed
+		- block parameter 1: a `Dictionary` containing all attributes found in the tag
+	
+		for example, after parsing
+
+			<meta property="og:title" content="The Rock" />
+
+		`onFind` will be called with with the following arguments:
+
+			("tag", ["property": "og:title", "content": "The Rock"])
+	*/
 	public var onFind: ((_ tag: String, _ value: [String: String]) -> Void)? = nil
 
+	/**
+		The designated initializer for `Parser`
+	*/
 	public init() {}
 
-	public func parse(_ text: String) -> Bool {
+	/**
+		Parse text and look for any HTML tags it contains. This does not perform any validation, such as checking if a <meta> tag appears inside of a <head> tag.
+	
+		`onFind` must be set before any parsing will occur.
+
+		- Parameter text: The text to parse.
+
+		- Returns: `true` if the entire document is parseable, or `false` if an error was encountered.
+	*/
+	public func parse(text: String) -> Bool {
 		guard let onFind = onFind else {
 			return false
 		}
