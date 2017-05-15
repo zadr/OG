@@ -48,6 +48,7 @@ if let url = URL(string: "https://…") {
 And the second way is more hands on; instead of fetching, parsing, and tracking tags automatically, OG exposes the components used for each step so you can pick and choose as needed.
 
 ```swift
+// first, fetch data from the network
 if let url = URL(string: "https://…") {
 	// first fetch html that might have opengraph previews
 	// The demo uses the built-in `URLSession`, but anything that can fetch data can be used here 
@@ -55,31 +56,39 @@ if let url = URL(string: "https://…") {
 		// make sure we successfully completed a request
 		if let response = response as? HTTPURLResponse, response.statusCode >= 200, response.statusCode < 300 {
 			if let data = data, let html = String(data: data, encoding: .utf8) {
-				// then create a parser that can tell us the contents of each html tag and any associated key/value properties it has
-				// `Parser` is provided, but this can be substituted with anything else that can iterate through html tags 
-				let parser = Parser()
-
-				// and keep track of each <meta class="og:…"> tag as the parser encounters it
-				// This could also be replaced with another component, but outside of testing purposes, there's less of an obvious need to do so than with the other steps of the process.
-				let tagTracker = TagTracker()
-				parser.onFind = { (tag, values) in
-					if !tagTracker.track(tag, values: values) {
-						print("refusing to track non-meta tag \(tag) with values \(values)")
-					}
-				}
-
-				if parser.parse(html) {
-					// - If we can parse html, map over our results to go from arrays of arrays of dictionaries (`[[String: OpenGraphType]]`)
-					// to an array of OpenGraph objects.
-					// - Note: OpenGraph can have multiple elements on a page (for example, an og:article, follwed by an og:author, followed by another og:author)
-					let tags = tagTracker.metadatum.map(Metadata.from)
-					print(tags)
-				}
+				parse(html: html)
 			}
 		}
 	}
 
 	task.resume()
+}
+```
+
+
+```swift
+// and then parse OpenGraph meta tags out of an html document
+func parse(html: String) {
+	// then create a parser that can tell us the contents of each html tag and any associated key/value properties it has
+	// `Parser` is provided, but this can be substituted with anything else that can iterate through html tags 
+	let parser = Parser()
+
+	// and keep track of each <meta class="og:…"> tag as the parser encounters it
+	// This could also be replaced with another component, but outside of testing purposes, there's less of an obvious need to do so than with the other steps of the process.
+	let tagTracker = TagTracker()
+	parser.onFind = { (tag, values) in
+		if !tagTracker.track(tag, values: values) {
+			print("refusing to track non-meta tag \(tag) with values \(values)")
+		}
+	}
+
+	if parser.parse(html) {
+		// - If we can parse html, map over our results to go from arrays of arrays of dictionaries (`[[String: OpenGraphType]]`)
+		// to an array of OpenGraph objects.
+		// - Note: OpenGraph can have multiple elements on a page (for example, an og:article, follwed by an og:author, followed by another og:author)
+		let tags = tagTracker.metadatum.map(Metadata.from)
+		print(tags)
+	}
 }
 ```
 
