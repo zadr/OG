@@ -1,15 +1,15 @@
-open class Metadata: OGMetadata {
-	open fileprivate(set) var title: String = ""
-	open fileprivate(set) var imageUrl: String = ""
-	open fileprivate(set) var url: String = ""
+public class Metadata: OGMetadata {
+	public fileprivate(set) var title: String = ""
+	public fileprivate(set) var imageUrl: String = ""
+	public fileprivate(set) var url: String = ""
 
-	open fileprivate(set) var audioUrl: String? = nil
-	open fileprivate(set) var graphDescription: String? = nil
-	open fileprivate(set) var determiner: Determiner? = nil
-	open fileprivate(set) var locale: String? = nil
-	open fileprivate(set) var alternateLocales: [String]? = nil
-	open fileprivate(set) var siteName: String? = nil
-	open fileprivate(set) var videoUrl: String? = nil
+	public fileprivate(set) var audioUrl: String? = nil
+	public fileprivate(set) var graphDescription: String? = nil
+	public fileprivate(set) var determiner: Determiner? = nil
+	public fileprivate(set) var locale: String? = nil
+	public fileprivate(set) var alternateLocales: [String]? = nil
+	public fileprivate(set) var siteName: String? = nil
+	public fileprivate(set) var videoUrl: String? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		if let title = values["og:title"] as? String { self.title = title }
@@ -25,7 +25,7 @@ open class Metadata: OGMetadata {
 		if let videoUrl = values["og:video"] as? String { self.videoUrl = videoUrl }
 	}
 
-	open class func from(_ values: [String: OpenGraphType]) -> Metadata? {
+	public class func from(_ values: [String: OpenGraphType]) -> Metadata? {
 		guard let type = values["og:type"] as? String else { return nil }
 
 		switch type {
@@ -78,14 +78,14 @@ extension Metadata: CustomStringConvertible {
 
 // MARK: -
 
-open class Media: Metadata, OGMedia {
-	open fileprivate(set) var secureUrl: String? = nil
-	open fileprivate(set) var mimeType: String? = nil
+public class Media: Metadata, OGMedia {
+	public fileprivate(set) var secureUrl: String? = nil
+	public fileprivate(set) var mimeType: String? = nil
 }
 
-open class VisualMedia: Media, OGVisualMedia {
-	open fileprivate(set) var width: Double? = nil
-	open fileprivate(set) var height: Double? = nil
+public class VisualMedia: Media, OGVisualMedia {
+	public fileprivate(set) var width: Double? = nil
+	public fileprivate(set) var height: Double? = nil
 }
 
 // MARK: -
@@ -107,7 +107,7 @@ public final class Image: VisualMedia, OGImage {
 
 // MARK: -
 
-open class Music: Media, OGMusic {
+public class Music: Media, OGMusic {
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
 
@@ -182,14 +182,14 @@ public final class RadioStation: Music, OGRadioStation {
 
 // MARK: -
 
-open class Video: VisualMedia {
-	open fileprivate(set) var actor: [OGProfile]? = nil
-	open fileprivate(set) var roles: [String]? = nil
-	open fileprivate(set) var director: [OGProfile]? = nil
-	open fileprivate(set) var writer: [OGProfile]? = nil
-	open fileprivate(set) var duration: Int? = nil
-	open fileprivate(set) var releaseDate: DateTime? = nil
-	open fileprivate(set) var tag: [String]? = nil
+public class Video: VisualMedia {
+	public fileprivate(set) var actor: [OGProfile]? = nil
+	public fileprivate(set) var roles: [String]? = nil
+	public fileprivate(set) var director: [OGProfile]? = nil
+	public fileprivate(set) var writer: [OGProfile]? = nil
+	public fileprivate(set) var duration: Int? = nil
+	public fileprivate(set) var releaseDate: DateTime? = nil
+	public fileprivate(set) var tag: [String]? = nil
 
 	public required init(values: [String: OpenGraphType]) {
 		super.init(values: values)
