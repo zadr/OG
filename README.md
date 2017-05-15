@@ -15,7 +15,7 @@ Included is an Xcode Workspace containing an Xcodeproj for a dynamic library and
 What do I need to use this?
 =====
 
-Requirements include iOS 8, Mac OS X 10.9, tvOS 9.0 or watchOS 2.0 and Swift 2.2 (included with Xcode 7.3.x).
+Requirements include iOS 8, Mac OS X 10.9, tvOS 9.0 or watchOS 2.0 and Swift 3.0 (included with Xcode 8.x).
 
 What do I do to start using this?
 =====
