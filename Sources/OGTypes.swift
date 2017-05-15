@@ -11,7 +11,11 @@ public class Metadata: OGMetadata {
 	public fileprivate(set) var siteName: String? = nil
 	public fileprivate(set) var videoUrl: String? = nil
 
+	public fileprivate(set) var rawData: [String: OpenGraphType]
+
 	public required init(values: [String: OpenGraphType]) {
+		rawData = values
+
 		if let title = values["og:title"] as? String { self.title = title }
 		if let imageUrl = values["og:image"] as? String { self.imageUrl = imageUrl }
 		if let url = values["og:url"] as? String { self.url = url }
