@@ -21,8 +21,8 @@ What do I do to start using this?
 =====
 
 To start using OG, you can add it to your project by:
-- Using [Carthage](https://github.com/Carthage/Carthage) and adding `github "zadr/OG" ~> 1.3.1` to your `Cartfile`.
-- Using [CocoaPods](https://cocoapods.org) by adding `pod 'OG', '~1.3.1` to your `Podfile`.
+- Using [Carthage](https://github.com/Carthage/Carthage) and adding `github "zadr/OG" ~> 1.3.2` to your `Cartfile`.
+- Using [CocoaPods](https://cocoapods.org) by adding `pod 'OG', '~1.3.2` to your `Podfile`.
 - Adding the current repository as a [git submodule](https://git-scm.com/docs/git-submodule), adding `OG.xcodeproj` into your `xcodeproj`, and adding `OG.framework` as an embedded binary to the Target of your project.
 
 What if I need help or want to help?
