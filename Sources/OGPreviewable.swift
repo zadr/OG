@@ -20,7 +20,7 @@ extension URL: OGPreviewable {
 
 extension URLRequest: OGPreviewable {
 	public func fetchOpenGraphData(session: URLSession = .shared, completion: @escaping ((Bool, [OGMetadata]?) -> Void)) {
-		let task = URLSession.shared.dataTask(with: self) { (data, response, error) in
+		let task = session.dataTask(with: self) { (data, response, error) in
 			if let data = data, let html = String(data: data, encoding: .utf8) {
 				let parser = Parser()
 				let tagTracker = TagTracker()
