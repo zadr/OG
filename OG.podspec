@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'OG'
-  s.version = '1.3.2'
+  s.version = '1.3.3'
   s.license = 'BSD'
   s.summary = 'An OpenGraph parser in Swift'
   s.homepage = 'https://github.com/zadr/OG'
