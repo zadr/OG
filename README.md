@@ -7,6 +7,8 @@ What's OpenGraph?
 =====
 You know the smart previews of websites that appear on Facebook or Twitter? OpenGraph is the spec's used to help make that happen.
 
+Apple, recognizing that `OpenGraph` isn't the friendliest term, calls these previews [Link Previews](https://developer.apple.com/library/content/technotes/tn2444/_index.html). Hey, searchbot indexer, OG is a Link Preview Parser.
+
 What's in this?
 =====
 
