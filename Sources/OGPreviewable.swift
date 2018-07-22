@@ -26,15 +26,15 @@ extension URLRequest: OGPreviewable {
 				let tagTracker = TagTracker()
 
 				parser.onFind = { (tag, values) in
-					if !tagTracker.track(tag: tag, values: values) {
+					if !tagTracker.track(tag, values: values) {
 						#if OG_DEBUG_LOGGING_ENABLED
 							print("refusing to track non-meta tag \(tag) with values \(values)")
 						#endif
 					}
 				}
 
-				if parser.parse(text: html) {
-					let graphs = tagTracker.metadatum.flatMap(Metadata.from)
+				if parser.parse(html) {
+					let graphs = tagTracker.metadatum.compactMap(Metadata.from)
 					completion(true, graphs)
 				} else {
 					completion(false, nil)

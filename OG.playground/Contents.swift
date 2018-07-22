@@ -14,7 +14,7 @@ parser.onFind = { (tag, values) in
 
 let success = parser.parse(testHTML)
 if success {
-	let tags = tagTracker.metadatum.flatMap(Metadata.from)
+	let tags = tagTracker.metadatum.compactMap(Metadata.from)
 	print(tags)
 } else {
 	print("parsing succeeded: \(success), unable to convert metadata \(tagTracker.metadatum) to OpenGraph object")

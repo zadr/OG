@@ -12,13 +12,11 @@
 		B6261D971EC94B4500706C24 /* OGTypeProtcols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */; };
 		B6261D981EC94B4500706C24 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB41D29FD98001EBF97 /* Parser.swift */; };
 		B6261D991EC94B4500706C24 /* OGTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB31D29FD98001EBF97 /* OGTypes.swift */; };
-		B6261D9A1EC94B4500706C24 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB21D29FD98001EBF97 /* StringExtensions.swift */; };
 		B6261D9B1EC94B4500706C24 /* TagTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC94E41D2CBDBF00C9A005 /* TagTracker.swift */; };
 		B6261D9E1EC94B4500706C24 /* OG.h in Headers */ = {isa = PBXBuildFile; fileRef = B69B9ABA1D29FD9F001EBF97 /* OG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B69B9A8F1D29F3CC001EBF97 /* OG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B69B9A841D29F3CC001EBF97 /* OG.framework */; };
 		B69B9AB01D29FC72001EBF97 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AAF1D29FC72001EBF97 /* Tests.swift */; };
 		B69B9AB51D29FD98001EBF97 /* OGTypeProtcols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */; };
-		B69B9AB61D29FD98001EBF97 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB21D29FD98001EBF97 /* StringExtensions.swift */; };
 		B69B9AB71D29FD98001EBF97 /* OGTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB31D29FD98001EBF97 /* OGTypes.swift */; };
 		B69B9AB81D29FD98001EBF97 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B9AB41D29FD98001EBF97 /* Parser.swift */; };
 		B69B9ABC1D29FD9F001EBF97 /* OG.h in Headers */ = {isa = PBXBuildFile; fileRef = B69B9ABA1D29FD9F001EBF97 /* OG.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -43,7 +41,6 @@
 		B69B9A951D29F3CC001EBF97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B69B9AAF1D29FC72001EBF97 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tests.swift; path = Tests/Tests.swift; sourceTree = SOURCE_ROOT; };
 		B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OGTypeProtcols.swift; path = Sources/OGTypeProtcols.swift; sourceTree = SOURCE_ROOT; };
-		B69B9AB21D29FD98001EBF97 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Sources/StringExtensions.swift; sourceTree = SOURCE_ROOT; };
 		B69B9AB31D29FD98001EBF97 /* OGTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OGTypes.swift; path = Sources/OGTypes.swift; sourceTree = SOURCE_ROOT; };
 		B69B9AB41D29FD98001EBF97 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = Sources/Parser.swift; sourceTree = SOURCE_ROOT; };
 		B69B9ABA1D29FD9F001EBF97 /* OG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OG.h; path = Sources/OG.h; sourceTree = SOURCE_ROOT; };
@@ -103,7 +100,6 @@
 				B69B9AB11D29FD97001EBF97 /* OGTypeProtcols.swift */,
 				B69B9AB31D29FD98001EBF97 /* OGTypes.swift */,
 				B69B9AB41D29FD98001EBF97 /* Parser.swift */,
-				B69B9AB21D29FD98001EBF97 /* StringExtensions.swift */,
 				B6DC94E41D2CBDBF00C9A005 /* TagTracker.swift */,
 				B69B9ABA1D29FD9F001EBF97 /* OG.h */,
 				B69B9ABD1D29FDC2001EBF97 /* Info.plist */,
@@ -270,7 +266,6 @@
 				B6261D971EC94B4500706C24 /* OGTypeProtcols.swift in Sources */,
 				B6261D981EC94B4500706C24 /* Parser.swift in Sources */,
 				B6261D991EC94B4500706C24 /* OGTypes.swift in Sources */,
-				B6261D9A1EC94B4500706C24 /* StringExtensions.swift in Sources */,
 				B6261D9B1EC94B4500706C24 /* TagTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,7 +278,6 @@
 				B69B9AB51D29FD98001EBF97 /* OGTypeProtcols.swift in Sources */,
 				B69B9AB81D29FD98001EBF97 /* Parser.swift in Sources */,
 				B69B9AB71D29FD98001EBF97 /* OGTypes.swift in Sources */,
-				B69B9AB61D29FD98001EBF97 /* StringExtensions.swift in Sources */,
 				B6DC94E51D2CBDBF00C9A005 /* TagTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,7 +385,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -433,7 +427,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -486,7 +480,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.thisismyinter.OGTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -498,7 +491,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.thisismyinter.OGTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

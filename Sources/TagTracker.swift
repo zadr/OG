@@ -54,7 +54,7 @@ public final class TagTracker {
 
 		- returns: `true` if an OpenGraph meta tag with a property name and content was tracked, otherwise `false`
 	*/
-	public func track(tag: String, values: [String: String]) -> Bool {
+	public func track(_ tag: String, values: [String: String]) -> Bool {
 		guard let tag = Tag(rawValue: tag), tag == .meta else {
 			return false
 		}

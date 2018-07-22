@@ -77,7 +77,7 @@ extension Metadata: CustomStringConvertible {
 			let mirror = mirrors[i]
 			let tabsForLevel = String(repeating: "\t", count: i + 1)
 
-			description += mirror.children.flatMap {
+			description += mirror.children.compactMap {
 				guard let key = $0.label else { return nil }
 				return "\n \(tabsForLevel)\(key): \($0.value),"
 			} .reduce("") { return $0 + $1 }
@@ -350,13 +350,15 @@ public struct DateTime {
 				length = 2
 			}
 
-			guard let character = current.characterAt(index: i) else { break }
 
-			if String(character) == previousEnding {
+			let characterStart = current.index(current.startIndex, offsetBy: i)
+			let character = String(current[characterStart ..< current.index(after: characterStart)])
+
+			if character == previousEnding {
 				continue
 			}
 
-			if current.utf8.count == length {
+			if current.count == length {
 				switch property {
 				case .year:
 					year = Int(current)!

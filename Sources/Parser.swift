@@ -40,7 +40,7 @@ public final class Parser {
 
 		- Returns: `true` if the entire document is parseable, or `false` if an error was encountered.
 	*/
-	public func parse(text: String) -> Bool {
+	public func parse(_ text: String) -> Bool {
 		guard let onFind = onFind else {
 			return false
 		}
@@ -53,30 +53,31 @@ public final class Parser {
 		var inString = false
 		var ignoreNextCharacter = false
 		var ignoringUntilClosingTag = false
-		var stack = [Character]()
+		var stack = String()
 		var state: ParserState = .starting
 
 		let matchedTagName = {
 			state = .matchingPropertyName
-			tagStack.append(String(stack))
+			tagStack.append(stack)
 			stack.removeAll()
 		}
 
 		let matchedKey = {
 			state = .matchingPropertyValue
-			currentProperty = String(stack)
+			currentProperty = stack
 			stack.removeAll()
 		}
 
 		let matchedValue = {
 			state = .matchingPropertyName
-			values[currentProperty] = String(stack)
+			values[currentProperty] = stack
 			stack.removeAll()
 		}
 
-		for i in 0 ..< text.utf8.count {
-			let character = text.characterAt(index: i)!
-			if !inString && character == Character(">") {
+		for i in 0 ..< text.count - 1 {
+			let characterStart = text.index(text.startIndex, offsetBy: i)
+			let character = String(text[characterStart ..< text.index(after: characterStart)])
+			if !inString && character == ">" {
 				if state == .matchingComment {
 					state = .starting
 					ignoringUntilClosingTag = false
@@ -109,22 +110,25 @@ public final class Parser {
 			}
 
 			var didSetMatchingTagState = false
-			if character == Character("<") {
+			if character == "<" {
 				didSetMatchingTagState = true
 				state = .matchingTagName
 			}
 
-			guard let nextCharacter = text.characterAt(index: i + 1) else {
+			guard characterStart != text.endIndex else {
 				break
 			}
 
-			if !inString && nextCharacter == Character("/") {
+			let nextCharacterStart = text.index(after: characterStart)
+			let nextCharacter = String(text[nextCharacterStart ..< text.index(after: nextCharacterStart)])
+
+			if !inString && nextCharacter == "/" {
 				ignoringUntilClosingTag = true
 				continue
 			}
 
 			if didSetMatchingTagState {
-				if nextCharacter == Character("!") {
+				if nextCharacter == "!" {
 					state = .matchingComment
 					ignoringUntilClosingTag = true
 				}
@@ -137,7 +141,7 @@ public final class Parser {
 
 			stack.append(character)
 
-			if character == Character("\\") {
+			if character == "\\" {
 				if ignoreNextCharacter {
 					ignoreNextCharacter = false
 				} else {
@@ -149,7 +153,7 @@ public final class Parser {
 				ignoreNextCharacter = false
 			}
 
-			if !ignoreNextCharacter && character == Character("\"") {
+			if !ignoreNextCharacter && character == "\"" {
 				stack.removeLast()
 
 				if !inString {
@@ -161,7 +165,7 @@ public final class Parser {
 				}
 			}
 
-			if (character != Character(" ") && character != Character("=")) {
+			if (character != " " && character != "=") {
 				continue
 			}
 
